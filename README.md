@@ -634,3 +634,95 @@ For support, email support@taskmanager.com or open an issue in the repository.
 ---
 
 **Created with ❤️ by the Development Team**
+/*S D:\Task Management API> mysql --version
+C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe  Ver 8.0.44 for Win64 on x86_64 (MySQL Community Server - GPL)
+PS D:\Task Management API> mysql -u root -p
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 109
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE task_management_db;
+ERROR 1007 (HY000): Can't create database 'task_management_db'; database exists
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydata             |
+| mysql              |
+| performance_schema |
+| sys                |
+| task_management_db |
+| testdb             |
++--------------------+
+7 rows in set (0.20 sec)
+
+mysql> USE task_management_db;
+Database changed
+mysql> SHOW TABLES;
++------------------------------+
+| Tables_in_task_management_db |
++------------------------------+
+| tasks                        |
+| users                        |
++------------------------------+
+2 rows in set (0.03 sec)
+
+mysql> DESCRIBE tasks;
++-------------+-------------------------------------------+------+-----+---------+----------------+
+| Field       | Type                                      | Null | Key | Default | Extra          |
++-------------+-------------------------------------------+------+-----+---------+----------------+
+| id          | bigint                                    | NO   | PRI | NULL    | auto_increment |
+| created_at  | datetime(6)                               | NO   |     | NULL    |                |
+| description | text                                      | YES  |     | NULL    |                |
+| due_date    | date                                      | YES  |     | NULL    |                |
+| priority    | enum('HIGH','LOW','MEDIUM')               | NO   |     | NULL    |                |
+| status      | enum('COMPLETED','IN_PROGRESS','PENDING') | NO   |     | NULL    |                |
+| title       | varchar(255)                              | NO   |     | NULL    |                |
+| updated_at  | datetime(6)                               | YES  |     | NULL    |                |
+| user_id     | bigint                                    | NO   | MUL | NULL    |                |
++-------------+-------------------------------------------+------+-----+---------+----------------+
+9 rows in set (0.06 sec)
+
+mysql> DESCRIBE users;
++------------+----------------------+------+-----+---------+----------------+
+| Field      | Type                 | Null | Key | Default | Extra          |
++------------+----------------------+------+-----+---------+----------------+
+| id         | bigint               | NO   | PRI | NULL    | auto_increment |
+| created_at | datetime(6)          | NO   |     | NULL    |                |
+| email      | varchar(255)         | NO   | UNI | NULL    |                |
+| name       | varchar(255)         | NO   |     | NULL    |                |
+| password   | varchar(255)         | NO   |     | NULL    |                |
+| role       | enum('ADMIN','USER') | NO   |     | NULL    |                |
++------------+----------------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT * FROM tasks;
++----+----------------------------+---------------------------------------------------------+------------+----------+-------------+--------------+----------------------------+---------+
+| id | created_at                 | description                                             | due_date   | priority | status      | title        | updated_at                 | user_id |
++----+----------------------------+---------------------------------------------------------+------------+----------+-------------+--------------+----------------------------+---------+
+|  1 | 2026-06-13 06:21:47.974150 | I want to complete DSA course in Next2 month 2026 .     | 2026-07-30 | HIGH     | COMPLETED   | DSA          | 2026-06-13 06:27:48.032757 |       1 |
+|  2 | 2026-06-13 06:25:12.519249 | I want  to complete this Aptitude in next 2 month 2026. | 2026-07-31 | MEDIUM   | IN_PROGRESS | Aptitude     | 2026-06-13 06:25:12.519249 |       1 |
+|  3 | 2026-06-13 06:26:34.549968 | I want to complete a Java course within a 3 month 2026. | 2026-08-30 | LOW      | PENDING     | Java Course  | 2026-06-13 06:27:22.937179 |       1 |
+|  4 | 2026-06-13 06:28:56.078661 | task one is not completed in a time                     | 2026-06-03 | MEDIUM   | PENDING     | Task 1       | 2026-06-13 06:28:56.078661 |       1 |
++----+----------------------------+---------------------------------------------------------+------------+----------+-------------+--------------+----------------------------+---------+
+4 rows in set (0.04 sec)
+
+mysql> SELECT * FROM users;
++----+----------------------------+---------------------------+-------------------------+--------------------------------------------------------------+------+
+| id | created_at                 | email                     | name                    | password                                                     | role |
++----+----------------------------+---------------------------+-------------------------+--------------------------------------------------------------+------+
+|  1 | 2026-06-13 05:30:44.088706 | rahulhattinagre@gmail.com | Rahul Govind Hattinagre | $2a$10$tVvuYraNGt1ISxWPsBR6O.6ROcbmv4kVyZ758e0SWUiBD5zh4/gly | USER |
++----+----------------------------+---------------------------+-------------------------+--------------------------------------------------------------+------+
+1 row in set (0.01 sec)
+
+mysql>   */
