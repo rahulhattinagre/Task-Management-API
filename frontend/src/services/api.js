@@ -3,6 +3,8 @@ import apiClient from './apiClient';
 export const authService = {
   register: (data) => apiClient.post('/auth/register', data),
   login: (data) => apiClient.post('/auth/login', data),
+  forgotPassword: (data) => apiClient.post('/auth/forgot-password', data),
+  resetPassword: (token, data) => apiClient.post(`/auth/reset-password/${token}`, data),
 };
 
 export const taskService = {
@@ -19,4 +21,9 @@ export const taskService = {
   searchTasks: (keyword, page = 0, size = 10, sortBy = 'id', sortDir = 'desc') =>
     apiClient.get(`/tasks/search?keyword=${keyword}&page=${page}&size=${size}&sortBy=${sortBy}&sortDir=${sortDir}`),
   getDashboard: () => apiClient.get('/dashboard'),
+};
+
+export const notificationService = {
+  getRecentNotifications: () => apiClient.get('/notifications'),
+  getUnreadCount: () => apiClient.get('/notifications/unread-count'),
 };

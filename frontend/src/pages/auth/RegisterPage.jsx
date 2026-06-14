@@ -1,7 +1,11 @@
 import { useMemo, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '@/services/api';
+import { toast } from 'react-toastify';
 import { AlertCircle, Eye, EyeOff, Loader, UserPlus } from 'lucide-react';
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
 const getPasswordStrength = (password) => {
   if (!password) return { label: 'Empty', level: 0 };
@@ -43,12 +47,20 @@ export default function RegisterPage() {
   };
 
   const validateForm = () => {
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+      setError('Please fill all required fields.');
       return false;
     }
-    if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters');
+    if (!emailPattern.test(formData.email)) {
+      setError('Email is incorrect. Please enter a valid email.');
+      return false;
+    }
+    if (!passwordPattern.test(formData.password)) {
+      setError('Password must be at least 8 characters and include one uppercase letter and one number.');
+      return false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError('Confirm password must match.');
       return false;
     }
     return true;
@@ -66,9 +78,8 @@ export default function RegisterPage() {
       const data = { ...formData };
       delete data.confirmPassword;
       await authService.register(data);
-      navigate('/login', {
-        state: { message: 'Registration successful! Please login.' },
-      });
+      toast.success('Account Created Successfully!');
+      setTimeout(() => navigate('/login'), 500);
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
@@ -106,7 +117,6 @@ export default function RegisterPage() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              required
               className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-5 py-3 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
               placeholder="John Doe"
             />
@@ -120,7 +130,6 @@ export default function RegisterPage() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
               className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-5 py-3 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
               placeholder="you@example.com"
             />
@@ -136,7 +145,6 @@ export default function RegisterPage() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  required
                   className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-5 py-3 pr-12 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
                   placeholder="••••••••"
                 />
@@ -160,7 +168,6 @@ export default function RegisterPage() {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  required
                   className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-5 py-3 pr-12 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
                   placeholder="••••••••"
                 />

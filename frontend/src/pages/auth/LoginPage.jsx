@@ -1,8 +1,12 @@
 import { useState } from 'react';
+
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
+import { toast } from 'react-toastify';
 import { AlertCircle, Eye, EyeOff, Loader, ArrowRightCircle } from 'lucide-react';
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -10,11 +14,13 @@ export default function LoginPage() {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,18 +30,50 @@ export default function LoginPage() {
     }));
   };
 
+  const validateForm = () => {
+    if (!formData.email || !formData.password) {
+      setError('Please fill all required fields.');
+      return false;
+    }
+    if (!emailPattern.test(formData.email)) {
+      setError('Email is incorrect. Please enter a valid email.');
+      return false;
+    }
+    if (formData.password.length < 8) {
+      setError('Password must be at least 8 characters.');
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!validateForm()) return;
+
     setLoading(true);
 
     try {
       const response = await authService.login(formData);
       const { data } = response.data;
       login(data, data.token);
-      navigate('/dashboard');
+
+
+
+      toast.success('Login Successful!');
+      setTimeout(() => navigate('/dashboard'), 500);
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
+      const status = err.response?.status;
+      const message = err.response?.data?.message;
+
+      if (status === 401) {
+        setError('Incorrect password. Please try again.');
+      } else if (status === 400 && message?.toLowerCase().includes('email')) {
+        setError('Email is incorrect. Please enter a valid email.');
+      } else {
+        setError(message || 'Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -71,7 +109,6 @@ export default function LoginPage() {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              required
               className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-5 py-3 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
               placeholder="you@example.com"
             />
@@ -88,7 +125,6 @@ export default function LoginPage() {
                 type={showPassword ? 'text' : 'password'}
                 value={formData.password}
                 onChange={handleChange}
-                required
                 className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-5 py-3 pr-12 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
                 placeholder="••••••••"
               />
@@ -103,20 +139,12 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500">
-            <label className="inline-flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="h-4 w-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500"
-              />
-              Remember me
-            </label>
+          <div className="flex items-center justify-between text-sm text-slate-500">
             <Link to="/forgot-password" className="font-semibold text-sky-600 hover:text-sky-500">
               Forgot password?
             </Link>
           </div>
+
 
           <button
             type="submit"

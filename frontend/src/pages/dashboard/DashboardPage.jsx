@@ -5,8 +5,11 @@ import DashboardCard from '@/components/DashboardCard';
 
 export default function DashboardPage() {
   const [dashboard, setDashboard] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -22,6 +25,7 @@ export default function DashboardPage() {
 
     fetchDashboard();
   }, []);
+
 
   if (loading) {
     return (
@@ -86,6 +90,8 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+
     </div>
   );
 }
