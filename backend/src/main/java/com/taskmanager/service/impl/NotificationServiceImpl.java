@@ -67,4 +67,13 @@ public class NotificationServiceImpl implements NotificationService {
                 .orElseThrow(() -> new APIException(HttpStatus.NOT_FOUND, "User not found"));
         return notificationRepository.countByUserAndReadFalse(user);
     }
+
+    @Override
+    public void markAllAsReadByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new APIException(HttpStatus.NOT_FOUND, "User not found"));
+        notificationRepository.markAllAsRead(user.getId());
+    }
 }
+
+

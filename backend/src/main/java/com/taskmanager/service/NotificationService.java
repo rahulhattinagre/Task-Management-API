@@ -9,4 +9,8 @@ public interface NotificationService {
     void publishNotification(Long userId, NotificationType type, String title, String message);
     List<NotificationDto> getRecentNotifications(String email);
     Long getUnreadCount(String email);
+    void markAllAsReadByEmail(String email);
 }
+
+
+

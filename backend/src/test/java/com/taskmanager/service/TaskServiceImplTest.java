@@ -32,6 +32,9 @@ public class TaskServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private NotificationService notificationService;
+
     @InjectMocks
     private TaskServiceImpl taskService;
 

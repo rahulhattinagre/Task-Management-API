@@ -5,8 +5,11 @@ import com.taskmanager.dto.NotificationDto;
 import com.taskmanager.service.NotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+
 
 import java.security.Principal;
 import java.util.List;
@@ -32,4 +35,12 @@ public class NotificationController {
         Long count = notificationService.getUnreadCount(principal.getName());
         return ResponseEntity.ok(new ApiResponse<>(true, "Unread count fetched successfully", count));
     }
+
+    @PutMapping("/read-all")
+    public ResponseEntity<ApiResponse<String>> markAllAsRead(Principal principal) {
+        notificationService.markAllAsReadByEmail(principal.getName());
+        return ResponseEntity.ok(new ApiResponse<>(true, "All notifications marked as read"));
+    }
+
 }
+
