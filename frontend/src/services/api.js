@@ -26,4 +26,5 @@ export const taskService = {
 export const notificationService = {
   getRecentNotifications: () => apiClient.get('/notifications'),
   getUnreadCount: () => apiClient.get('/notifications/unread-count'),
+  markAllAsRead: () => apiClient.put('/notifications/read-all'),
 };

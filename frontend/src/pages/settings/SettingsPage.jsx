@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { Shield, Moon, Bell, Lock, User } from 'lucide-react';
-import { toast } from 'react-hot-toast';
+import { Lock, Bell, Moon } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 export default function SettingsPage() {
   const { user, updateProfile } = useAuth();
@@ -24,10 +24,10 @@ export default function SettingsPage() {
     try {
       // If backend update endpoints are added later, call them here.
       updateProfile({ name: formData.name, email: formData.email });
-      toast.success('Profile updated successfully');
+      toast.success('Profile updated successfully!');
       setFormData((prev) => ({ ...prev, password: '' }));
     } catch (err) {
-      toast.error('Unable to save changes.');
+      toast.error('Failed to update profile');
     } finally {
       setSaving(false);
     }

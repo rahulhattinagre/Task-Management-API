@@ -18,11 +18,19 @@ export default function NotificationPanel({ open, onClose }) {
   useEffect(() => {
     if (!open) return;
 
-    const fetchNotifications = async () => {
+    const run = async () => {
       setLoading(true);
       setError('');
 
       try {
+        // Mark all as read when popup opens
+        try {
+          await notificationService.markAllAsRead();
+        } catch (e) {
+          // Non-fatal: still try to render notifications
+          console.warn('Failed to mark notifications as read', e);
+        }
+
         const response = await notificationService.getRecentNotifications();
         setNotifications(response.data.data || []);
       } catch (err) {
@@ -32,10 +40,8 @@ export default function NotificationPanel({ open, onClose }) {
       }
     };
 
-    fetchNotifications();
+    run();
   }, [open]);
-
-  if (!open) return null;
 
   let notificationContent;
 
@@ -69,6 +75,7 @@ export default function NotificationPanel({ open, onClose }) {
                   <p className="mt-1 text-sm text-slate-500">{notification.message}</p>
                 </div>
               </div>
+
               <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
                 <span>{new Date(notification.createdAt).toLocaleString()}</span>
                 <span>{notification.read ? 'Read' : 'Unread'}</span>
@@ -81,23 +88,42 @@ export default function NotificationPanel({ open, onClose }) {
   }
 
   return (
-    <div className="absolute right-4 top-16 z-50 w-[340px] rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
-      <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
-        <div>
-          <p className="text-sm font-semibold text-slate-900">Notifications</p>
-          <p className="text-xs text-slate-500">Recent activity from your tasks</p>
-        </div>
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
-          aria-label="Close notifications"
-        >
-          <X size={18} />
-        </button>
-      </div>
+    <div className={`fixed inset-0 z-[9999] ${open ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+      {/* Backdrop blur + outside click */}
+      <button
+        type="button"
+        aria-label="Close notifications"
+        onClick={onClose}
+        className={`absolute inset-0 h-full w-full bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}
+      />
 
-      <div className="max-h-[420px] overflow-y-auto p-4">{notificationContent}</div>
+      {/* Slide-out drawer */}
+      <div
+        className={`fixed top-0 right-0 h-screen w-[340px] max-w-[95vw] translate-x-full transition-transform duration-300 ease-out ${open ? 'translate-x-0' : 'translate-x-full'}`}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="h-full w-full rounded-l-3xl border border-slate-200 bg-white/95 shadow-2xl shadow-slate-900/10">
+
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Notifications</p>
+              <p className="text-xs text-slate-500">Recent activity from your tasks</p>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+              aria-label="Close notifications"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          <div className="max-h-[calc(100vh-72px)] overflow-y-auto p-4">{notificationContent}</div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -106,3 +132,4 @@ NotificationPanel.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
+
