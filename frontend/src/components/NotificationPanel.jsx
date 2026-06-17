@@ -18,6 +18,12 @@ export default function NotificationPanel({ open, onClose }) {
   useEffect(() => {
     if (!open) return;
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
     const run = async () => {
       setLoading(true);
       setError('');
@@ -41,7 +47,10 @@ export default function NotificationPanel({ open, onClose }) {
     };
 
     run();
-  }, [open]);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open, onClose]);
 
   let notificationContent;
 
@@ -88,18 +97,18 @@ export default function NotificationPanel({ open, onClose }) {
   }
 
   return (
-    <div className={`fixed inset-0 z-[9999] ${open ? 'pointer-events-auto' : 'pointer-events-none'}`}>
-      {/* Backdrop blur + outside click */}
+    <div className={`fixed inset-0 z-[1000] ${open ? 'pointer-events-auto' : 'pointer-events-none'} `}>
+      {/* Overlay (no blur) */}
       <button
         type="button"
         aria-label="Close notifications"
         onClick={onClose}
-        className={`absolute inset-0 h-full w-full bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 h-full w-full bg-black/30 transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}
       />
 
       {/* Slide-out drawer */}
       <div
-        className={`fixed top-0 right-0 h-screen w-[340px] max-w-[95vw] translate-x-full transition-transform duration-300 ease-out ${open ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed top-0 right-0 z-[1001] h-screen w-full sm:w-[380px] md:w-[320px] max-w-full translate-x-full transition-transform duration-300 ease-out ${open ? 'translate-x-0' : 'translate-x-full'}`}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
