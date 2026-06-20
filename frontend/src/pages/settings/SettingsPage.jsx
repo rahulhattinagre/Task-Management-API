@@ -35,10 +35,10 @@ export default function SettingsPage() {
 
   return (
     <div className="animate-fade-in space-y-8">
-      <div className="rounded-3xl bg-white/95 border border-slate-200 p-8 shadow-2xl shadow-slate-900/10">
-        <div className="flex flex-col gap-6 xl:flex-row xl:items-center xl:justify-between">
+      <div className="app-card-strong px-0 py-0">
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-center xl:justify-between p-8">
           <div>
-            <p className="text-sm uppercase tracking-[0.28em] text-sky-500">Settings</p>
+            <p className="app-kicker">Settings</p>
             <h1 className="mt-4 text-4xl font-bold text-slate-900">Account settings</h1>
             <p className="mt-2 max-w-2xl text-gray-600">
               Manage your profile, security settings, and notification preferences from one place.
@@ -51,6 +51,7 @@ export default function SettingsPage() {
           </div>
         </div>
       </div>
+
 
       <div className="grid gap-6 lg:grid-cols-[1.45fr_0.95fr]">
         <section className="rounded-3xl bg-white/95 border border-slate-200 p-8 shadow-lg shadow-slate-900/5">

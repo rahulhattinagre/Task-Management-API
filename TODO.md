@@ -1,17 +1,13 @@
 # TODO (Design/UI Refactor)
 
 - [x] Add centralized UI design tokens/classes to `frontend/src/styles/index.css` (card, headers, gradients, badges)
-- [ ] Add shared classes used by layouts/pages/components (still to be done)
+- [ ] Add shared “Design Hole” semantic classes and migrate UI to use them
+  - [x] Add semantic classes to `frontend/src/styles/index.css` (app-card, app-button, app-alert, app-chip, section header)
+  - [x] Update layouts/components to use shared classes:
+    - [x] `MainLayout`, `Navbar`, `Sidebar`
+    - [x] `DashboardPage`, `TaskListPage`, `SettingsPage`
+    - [x] `TaskTable`
+  - [ ] Update auth experience UI consistency (Login + AuthLayout)
+  - [x] Run frontend build and ensure it compiles
 
-
-- [ ] Update `MainLayout`, `Navbar`, `Sidebar`, `TaskTable` to use the new shared classes
-- [ ] Normalize page header/card patterns in:
-  - [ ] `DashboardPage`
-  - [ ] `TaskListPage`
-  - [ ] `SettingsPage`
-- [ ] Redesign auth experience:
-  - [ ] Login page UI and layout (perfect spacing + responsive)
-  - [ ] Signup page UI and layout
-  - [ ] Home page/landing sections shown on login/signup (as applicable)
-- [ ] Run frontend dev server and visually verify consistent sizes/alignment
 

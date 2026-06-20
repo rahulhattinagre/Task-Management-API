@@ -65,7 +65,7 @@ export default function TaskListPage() {
 
   return (
     <div className="animate-fade-in space-y-8">
-      <div className="rounded-3xl bg-white/95 border border-slate-200 p-6 shadow-lg shadow-slate-900/5 backdrop-blur-sm">
+      <div className="app-card-soft p-6">
         <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">My Tasks</h1>
@@ -75,7 +75,7 @@ export default function TaskListPage() {
           </div>
           <Link
             to="/tasks/create"
-            className="inline-flex items-center justify-center gap-2 rounded-3xl bg-gradient-to-r from-sky-500 to-violet-500 px-5 py-3 text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5"
+            className="app-button-primary !px-5"
           >
             <Plus size={20} />
             <span>New Task</span>
@@ -92,6 +92,7 @@ export default function TaskListPage() {
         onPriorityChange={setFilterPriority}
         onClearFilters={handleClearFilters}
       />
+
 
       {error && (
         <div className="rounded-3xl bg-red-50 border border-red-200 p-4 text-red-700 shadow-sm shadow-red-100">

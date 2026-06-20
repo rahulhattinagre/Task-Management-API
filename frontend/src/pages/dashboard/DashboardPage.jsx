@@ -56,10 +56,10 @@ export default function DashboardPage() {
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-8 flex flex-col gap-4 rounded-3xl bg-white/85 border border-slate-200 p-6 shadow-lg shadow-slate-900/5 backdrop-blur-sm md:flex-row md:items-center md:justify-between">
+      <div className="app-section-header">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-sky-500">Overview</p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-900">Dashboard</h1>
+          <p className="app-kicker">Overview</p>
+          <h1 className="app-title">Dashboard</h1>
           <p className="mt-2 max-w-2xl text-gray-600">
             A quick summary of your active tasks, progress, and overdue items so you can stay focused.
           </p>
@@ -90,7 +90,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-
 
     </div>
   );

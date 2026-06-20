@@ -95,3 +95,87 @@ textarea {
     background-position: -200% 0;
   }
 }
+
+/* ------------------------------
+   Design Hole (semantic UI classes)
+   These are “shared” classnames that map to your current Tailwind look.
+   ------------------------------ */
+
+/* Cards / panels */
+.app-card {
+  @apply rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-900/5;
+}
+
+.app-card-soft {
+  @apply rounded-3xl border border-slate-200/70 bg-white/95 shadow-lg shadow-slate-900/5 backdrop-blur-sm;
+}
+
+.app-card-strong {
+  @apply rounded-[2rem] border border-slate-200/70 bg-white/95 px-6 py-7 shadow-[0_30px_80px_rgba(15,23,42,0.12)] sm:px-8;
+}
+
+/* Section header pattern */
+.app-section-header {
+  @apply mb-8 flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white/85 p-6 shadow-lg shadow-slate-900/5 backdrop-blur-sm md:flex-row md:items-center md:justify-between;
+}
+
+.app-kicker {
+  @apply text-sm font-semibold uppercase tracking-[0.28em] text-sky-500;
+}
+
+.app-title {
+  @apply mt-3 text-4xl font-bold tracking-tight text-slate-900;
+}
+
+/* Badges / chips */
+.app-chip {
+  @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold;
+}
+
+/* Variants (priority/status) - reuses your helpers outputs */
+.app-chip-priority-low {
+  @apply bg-emerald-500/10 text-emerald-700;
+}
+
+.app-chip-priority-medium {
+  @apply bg-amber-500/10 text-amber-700;
+}
+
+.app-chip-priority-high {
+  @apply bg-rose-500/10 text-rose-700;
+}
+
+.app-chip-status-pending {
+  @apply bg-sky-500/10 text-sky-700;
+}
+
+.app-chip-status-in_progress {
+  @apply bg-violet-500/10 text-violet-700;
+}
+
+.app-chip-status-completed {
+  @apply bg-emerald-500/10 text-emerald-700;
+}
+
+/* Buttons */
+.app-button-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-3xl bg-gradient-to-r from-sky-500 to-violet-500 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5;
+}
+
+.app-button-secondary {
+  @apply inline-flex items-center justify-center rounded-3xl border border-slate-200 bg-white px-5 py-3 text-base font-semibold text-slate-700 transition hover:bg-slate-50;
+}
+
+/* Alerts */
+.app-alert {
+  @apply rounded-3xl border p-4 shadow-sm;
+}
+
+.app-alert-error {
+  @apply bg-red-50 border-red-200 text-red-700;
+}
+
+.app-alert-info {
+  @apply bg-sky-50 border-sky-200 text-sky-800;
+}
+

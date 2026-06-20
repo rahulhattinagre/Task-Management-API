@@ -4,9 +4,10 @@ import { formatDate, getPriorityColor, getStatusColor } from '@/utils/helpers';
 
 export default function TaskTable({ tasks, onDelete }) {
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-900/5">
+    <div className="overflow-hidden app-card">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] border-collapse">
+
           <thead className="bg-slate-50 text-slate-600">
             <tr>
               <th className="whitespace-nowrap px-6 py-4 text-left text-sm font-semibold">Title</th>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, CheckSquare, Plus, CalendarDays, BarChart3, Bell, Settings, X, LogOut } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Bell, Settings, X, LogOut } from 'lucide-react';
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },

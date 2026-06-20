@@ -35,8 +35,8 @@ export default function Navbar({ onMenuClick }) {
     navigate('/login');
   };
 
-  return (
-    <nav className="border-b border-slate-200 bg-white/95 backdrop-blur-xl shadow-sm shadow-slate-200/40">
+return (
+    <nav className="app-card-soft border-b-0 border-slate-200/70 border-b bg-white/95">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <button

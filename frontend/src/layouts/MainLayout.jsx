@@ -6,8 +6,8 @@ import { useState } from 'react';
 export default function MainLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  return (
-    <div className="flex min-h-screen bg-slate-50 text-slate-900">
+return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
       <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
