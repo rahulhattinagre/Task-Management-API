@@ -39,31 +39,31 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="mx-auto w-full max-w-[380px]">
-      <div className="rounded-[2rem] border border-slate-200/70 bg-white/95 px-6 py-7 shadow-[0_30px_80px_rgba(15,23,42,0.12)] sm:px-8">
+      <div className="app-auth-card">
         <div className="text-center">
-          <p className="text-[11px] uppercase tracking-[0.36em] text-slate-400">Need help?</p>
-          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900">Forgot Password</h1>
-          <p className="mt-2 text-sm text-slate-500">Enter your email to receive a password reset link.</p>
+          <p className="text-[11px] uppercase tracking-[0.36em] text-slate-400 font-semibold">Need help?</p>
+          <h1 className="mt-3 text-2xl font-bold tracking-tight text-white">Forgot Password</h1>
+          <p className="mt-2 text-sm text-slate-400">Enter your email to receive a password reset link.</p>
         </div>
 
         {error && (
-          <div className="mt-6 rounded-3xl border border-rose-200 bg-rose-50 p-4 text-rose-700 shadow-sm">
+          <div className="mt-6 rounded-3xl border border-rose-500/30 bg-rose-500/10 p-4 text-rose-200 shadow-sm">
             <div className="flex items-start gap-3">
-              <AlertCircle className="mt-0.5 text-rose-600" size={20} />
+              <AlertCircle className="mt-0.5 text-rose-400" size={20} />
               <p className="text-sm font-medium">{error}</p>
             </div>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <label htmlFor="forgot-email" className="mb-2 block text-sm font-medium text-slate-700">Email address</label>
+            <label htmlFor="forgot-email" className="mb-2 block text-sm font-medium text-slate-300">Email address</label>
             <input
               id="forgot-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-3xl border border-slate-300 bg-slate-50 px-5 py-3 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
+              className="app-auth-input"
               placeholder="you@example.com"
             />
           </div>
@@ -71,16 +71,16 @@ export default function ForgotPasswordPage() {
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-3xl bg-gradient-to-r from-violet-600 to-sky-500 px-5 py-3 text-base font-semibold text-white shadow-lg shadow-violet-500/20 transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-3xl bg-gradient-to-r from-violet-600 to-sky-500 px-5 py-2.5 text-base font-semibold text-white shadow-lg shadow-violet-500/20 transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {loading && <Loader size={20} className="animate-spin" />}
             {loading ? 'Sending...' : 'Send Reset Link'}
           </button>
         </form>
 
-        <p className="mt-5 text-center text-sm text-slate-500">
+        <p className="mt-5 text-center text-sm text-slate-400">
           Back to{' '}
-          <Link to="/login" className="font-semibold text-violet-600 hover:text-violet-500">
+          <Link to="/login" className="font-semibold text-violet-400 hover:text-violet-300 transition">
             Login
           </Link>
         </p>

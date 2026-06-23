@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "axios": "^1.6.2",
     "framer-motion": "^12.40.0",
+    "jspdf": "^4.2.1",
     "lucide-react": "^0.294.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 export default function AuthLayout() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+    <div className="relative min-h-screen overflow-y-auto bg-slate-950 text-white">
       {/* Dark blue + purple productivity gradient */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.24),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.22),_transparent_30%)]" />
 
@@ -89,14 +89,32 @@ export default function AuthLayout() {
               </div>
             </div>
 
-            {/* Decorative calendar icons */}
-            <div className="absolute left-[22px] bottom-[18%] opacity-40">
-              <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
+            {/* Project info block */}
+            <div className="absolute bottom-[8%] left-[10%] max-w-[80%] space-y-4">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-400 border border-sky-500/20 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                V1.0 Live Dashboard
+              </span>
+              <h2 className="text-3xl font-extrabold tracking-tight text-white leading-tight font-sans">
+                TaskFlow Workspace
+              </h2>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                Streamline your day, align your priorities, and keep momentum going. A premium task space designed to manage, track, and export your daily goals effortlessly.
+              </p>
+              <div className="pt-1 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400">
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  <span>Real-time Sync</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+                  <span>PDF Exporting</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                  <span>Color-coded Alerts</span>
+                </div>
+              </div>
             </div>
           </div>
 

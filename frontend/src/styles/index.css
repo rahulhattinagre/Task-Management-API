@@ -179,3 +179,12 @@ textarea {
   @apply bg-sky-50 border-sky-200 text-sky-800;
 }
 
+/* Premium dark-glassmorphism auth styling */
+.app-auth-card {
+  @apply rounded-[2rem] border border-white/10 bg-slate-900/60 px-6 py-6 shadow-[0_30px_90px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-8 text-slate-100;
+}
+
+.app-auth-input {
+  @apply w-full rounded-3xl border border-slate-800 bg-slate-950/40 px-5 py-2.5 text-white outline-none transition placeholder-slate-500 focus:border-sky-500/80 focus:ring-2 focus:ring-sky-500/10;
+}
+

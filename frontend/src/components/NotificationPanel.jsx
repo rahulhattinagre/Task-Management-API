@@ -1,13 +1,69 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { notificationService } from '@/services/api';
-import { Bell, CheckCircle2, MessageSquare, AlertTriangle, Loader, X } from 'lucide-react';
+import { 
+  Bell, 
+  CheckCircle2, 
+  CheckSquare, 
+  RefreshCw, 
+  Trash2, 
+  LogIn, 
+  Clock, 
+  AlertTriangle, 
+  Loader, 
+  X 
+} from 'lucide-react';
 
-const iconByType = {
-  CREATED: CheckCircle2,
-  UPDATED: MessageSquare,
-  DELETED: AlertTriangle,
-  LOGIN: Bell,
+const configByType = {
+  CREATED: {
+    icon: CheckSquare,
+    iconColor: 'text-emerald-500',
+    iconBg: 'bg-emerald-500/10',
+    border: 'border-emerald-500/20',
+    bg: 'bg-emerald-500/5',
+  },
+  UPDATED: {
+    icon: RefreshCw,
+    iconColor: 'text-violet-500',
+    iconBg: 'bg-violet-500/10',
+    border: 'border-violet-500/20',
+    bg: 'bg-violet-500/5',
+  },
+  COMPLETED: {
+    icon: CheckCircle2,
+    iconColor: 'text-teal-500',
+    iconBg: 'bg-teal-500/10',
+    border: 'border-teal-500/20',
+    bg: 'bg-teal-500/5',
+  },
+  DELETED: {
+    icon: Trash2,
+    iconColor: 'text-rose-500',
+    iconBg: 'bg-rose-500/10',
+    border: 'border-rose-500/20',
+    bg: 'bg-rose-500/5',
+  },
+  LOGIN: {
+    icon: LogIn,
+    iconColor: 'text-sky-500',
+    iconBg: 'bg-sky-500/10',
+    border: 'border-sky-500/20',
+    bg: 'bg-sky-500/5',
+  },
+  DEADLINE_APPROACHING: {
+    icon: Clock,
+    iconColor: 'text-amber-500',
+    iconBg: 'bg-amber-500/10',
+    border: 'border-amber-500/20',
+    bg: 'bg-amber-500/5',
+  },
+  OVERDUE: {
+    icon: AlertTriangle,
+    iconColor: 'text-red-500',
+    iconBg: 'bg-red-500/10',
+    border: 'border-red-500/20',
+    bg: 'bg-red-500/5',
+  },
 };
 
 export default function NotificationPanel({ open, onClose }) {
@@ -72,22 +128,31 @@ export default function NotificationPanel({ open, onClose }) {
     notificationContent = (
       <ul className="space-y-3">
         {notifications.map((notification) => {
-          const Icon = iconByType[notification.type] || Bell;
+          const config = configByType[notification.type] || {
+            icon: Bell,
+            iconColor: 'text-slate-500',
+            iconBg: 'bg-slate-100',
+            border: 'border-slate-200',
+            bg: 'bg-slate-50',
+          };
+          const Icon = config.icon;
           return (
-            <li key={notification.id} className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+            <li key={notification.id} className={`rounded-3xl border ${config.border} ${config.bg} p-4 transition duration-200 hover:shadow-sm`}>
               <div className="flex items-start gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-700">
+                <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${config.iconBg} ${config.iconColor}`}>
                   <Icon size={18} />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-sm font-semibold text-slate-900">{notification.title}</p>
-                  <p className="mt-1 text-sm text-slate-500">{notification.message}</p>
+                  <p className="mt-1 text-sm text-slate-500 leading-relaxed">{notification.message}</p>
                 </div>
               </div>
 
               <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
                 <span>{new Date(notification.createdAt).toLocaleString()}</span>
-                <span>{notification.read ? 'Read' : 'Unread'}</span>
+                <span className={`font-semibold ${notification.read ? 'text-slate-400' : 'text-sky-600'}`}>
+                  {notification.read ? 'Read' : 'New'}
+                </span>
               </div>
             </li>
           );
